@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Type-annotated function"""
 
-
+import math
 def floor(n: float) -> int:
     """
       A function that returns the floor value of
@@ -12,4 +12,4 @@ def floor(n: float) -> int:
 
       Return: floor value of n
     """
-    return round(n)
+    return math.floor(n)
