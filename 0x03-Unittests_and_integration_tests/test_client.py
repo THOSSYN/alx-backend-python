@@ -43,14 +43,18 @@ class TestGithubOrgClient(unittest.TestCase):
     @patch('client.get_json')
     def test_public_repos(self, mock_get_json):
         """Test public repos"""
-        with patch('client.GithubOrgClient._public_repos_url', new_callable=PropertyMock) as mock_public_repo_url:
+        with patch('client.GithubOrgClient._public_repos_url',
+                   new_callable=PropertyMock) as mock_public_repo_url:
             get_json_result = [
                     {'name': 'truth'},
                     {'name': 'ruby-openid-apps-discovery'},
                     {'name': 'autoparse'}
             ]
             mock_get_json.return_value = get_json_result
-            expected_repos = ['truth', 'ruby-openid-apps-discovery', 'autoparse']
+            expected_repos = [
+                    'truth',
+                    'ruby-openid-apps-discovery',
+                    'autoparse']
             expected_url = "https://api.github.com/orgs/google/repos"
             mock_public_repo_url.return_value = expected_url
 
