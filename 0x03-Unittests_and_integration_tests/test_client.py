@@ -121,7 +121,7 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
     def test_public_repos_with_license(self):
         """Tests for public_repos with license"""
         git_org = GithubOrgClient('google')
-        result = git_org.public_repos("apache-2.0")
+        result = git_org.public_repos(license="apache-2.0")
 
         self.assertIsInstance(result, list)
 
