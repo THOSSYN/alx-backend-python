@@ -98,14 +98,14 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         """A set up for testing"""
-        cls.mock_requests_patcher = patch('requests.get')
-        cls.mock_requests = cls.mock_requests_patcher.start()
-        cls.mock_requests.json.side_effect = cls.repos_payload
+        cls.get_patcher = patch('requests.get')
+        cls.patcher = cls.get_patcher.start()
+        cls.patcher.json.side_effect = cls.repos_payload
 
     @classmethod
     def tearDownClass(cls):
         """A clen-up method for after-test"""
-        cls.mock_requests_patcher.stop()
+        cls.get_patcher.stop()
 
     def test_public_repos(self):
         """A test for public repos"""
