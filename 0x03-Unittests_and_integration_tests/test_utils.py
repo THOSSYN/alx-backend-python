@@ -15,7 +15,6 @@ class TestAccessNestedMap(unittest.TestCase):
         ({"a": {"b": 2}}, ("a",), {"b": 2}),
         ({"a": {"b": 2}}, ("a", "b"), 2)
     ])
-
     def test_access_nested_map(self, nested_map, path, expected):
         """Test if a result returns as it ought to"""
         result = access_nested_map(nested_map, path)
@@ -25,7 +24,6 @@ class TestAccessNestedMap(unittest.TestCase):
         ({}, ("a",), KeyError),
         ({"a": 1}, ("a", "b"), KeyError)
     ])
-
     def test_access_nested_map_exception(self, nested_map, path, expected):
         """Test if KeyError is raised"""
         with self.assertRaises(expected):
@@ -58,7 +56,7 @@ class TestMemoize(unittest.TestCase):
         class TestClass:
             def a_method(self):
                 return 42
-            
+
             @memoize
             def a_property(self):
                 return self.a_method()
