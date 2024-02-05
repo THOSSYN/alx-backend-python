@@ -22,7 +22,7 @@ class TestGithubOrgClient(unittest.TestCase):
         """A test case for the client 'GithubOrgClient.org'"""
         expected_url = f"https://api.github.com/orgs/{orgs_name}"
         mocked_get_json.return_value = {"some_data": "mocked up data"}
-        
+
         git_org = GithubOrgClient(orgs_name)
         result = git_org.org
 
@@ -32,26 +32,31 @@ class TestGithubOrgClient(unittest.TestCase):
 
     def test_public_repos_url(self):
         """Test public repos url"""
-        with patch('client.GithubOrgClient.org', new_callable=PropertyMock) as Mocked_Org:
-            Mocked_Org.return_value = {"repos_url": "https://api.github.com/orgs/example/repos"}
+        with patch('client.GithubOrgClient.org',
+                   new_callable=PropertyMock) as Mocked_Org:
+            Mocked_Org.return_value = {
+                    "repos_url": "https://api.github.com/orgs/example/repos"
+                    }
             git_org = GithubOrgClient('example')
 
             result = git_org._public_repos_url
 
-            self.assertEqual(result, "https://api.github.com/orgs/example/repos")
+            self.assertEqual(
+                    result, "https://api.github.com/orgs/example/repos"
+                    )
 
     @patch('client.get_json')
     def test_public_repos(self, mock_get_json):
         """Test public repos"""
         with patch('client.GithubOrgClient._public_repos_url',
                    new_callable=PropertyMock) as mock_public_repo_url:
-            get_json_result = [ 
+            get_json_result = [
                     {'name': 'truth'},
                     {'name': 'ruby-openid-apps-discovery'},
                     {'name': 'autoparse'}
-            ]   
+            ]
             mock_get_json.return_value = get_json_result
-            expected_repos = [ 
+            expected_repos = [
                     'truth',
                     'ruby-openid-apps-discovery',
                     'autoparse']
@@ -68,7 +73,7 @@ class TestGithubOrgClient(unittest.TestCase):
     @parameterized.expand([
         ({"license": {"key": "my_license"}}, "my_license", True),
         ({"license": {"key": "other_license"}}, "my_license", False)
-    ])  
+    ])
     def test_has_license(self, repo, license_key, expected):
         """Test has_license method"""
         git_org = GithubOrgClient('google')
