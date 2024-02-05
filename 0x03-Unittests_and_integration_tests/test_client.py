@@ -4,8 +4,8 @@
 import requests
 import unittest
 from unittest.mock import patch, PropertyMock
-from parameterized import parameterized_class
 from parameterized import parameterized
+from parameterized import parameterized_class
 from utils import *
 from client import *
 from fixtures import TEST_PAYLOAD
@@ -67,8 +67,7 @@ class TestGithubOrgClient(unittest.TestCase):
     ])
     def test_has_license(self, repo, license_key, expected):
         """Test has_license method"""
-        git_org = GithubOrgClient('google')
-        result = git_org.has_license(repo, license_key)
+        result = GithubOrgClient.has_license(repo, license_key)
 
         self.assertEqual(result, expected)
 
