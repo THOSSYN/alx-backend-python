@@ -45,13 +45,13 @@ class TestGithubOrgClient(unittest.TestCase):
         """Test public repos"""
         with patch('client.GithubOrgClient._public_repos_url',
                    new_callable=PropertyMock) as mock_public_repo_url:
-            get_json_result = [
+            get_json_result = [ 
                     {'name': 'truth'},
                     {'name': 'ruby-openid-apps-discovery'},
                     {'name': 'autoparse'}
-            ]
+            ]   
             mock_get_json.return_value = get_json_result
-            expected_repos = [
+            expected_repos = [ 
                     'truth',
                     'ruby-openid-apps-discovery',
                     'autoparse']
@@ -68,10 +68,12 @@ class TestGithubOrgClient(unittest.TestCase):
     @parameterized.expand([
         ({"license": {"key": "my_license"}}, "my_license", True),
         ({"license": {"key": "other_license"}}, "my_license", False)
-    ])
+    ])  
     def test_has_license(self, repo, license_key, expected):
         """Test has_license method"""
-        result = GithubOrgClient.has_license(repo, license_key)
+        git_org = GithubOrgClient('google')
+        result = git_org.has_license(repo, license_key)
+        print(result)
 
         self.assertEqual(result, expected)
 
